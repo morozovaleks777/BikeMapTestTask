@@ -56,4 +56,12 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Unit testing dependencies
+    testImplementation( libs.mockito)
+    testImplementation( libs.mockito.kotlin)
+    // For testing LiveData / StateFlow
+    testImplementation(libs.core.testing)
+    // For coroutine testing
+    testImplementation(libs.coroutines.test)
 }

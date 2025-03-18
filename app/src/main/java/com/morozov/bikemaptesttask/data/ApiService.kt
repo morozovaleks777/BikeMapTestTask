@@ -5,7 +5,7 @@ import com.morozov.bikemaptesttask.domain.Error.*
 
 // This class and method will simulate the login endpoint
 
-class ApiService {
+open class ApiService {
     fun login(username: String, password: String): ApiResponse<Int?> {
         return when (username) {
             "user" -> {
