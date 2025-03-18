@@ -42,7 +42,10 @@ class LoginViewModel(private val apiService: ApiService) : ViewModel() {
             _state.value = _state.value.copy(
                 isLoading = false,
                 loginResult = when (response.error) {
-                    null -> {"Login successful"}
+                    null -> {
+                        "Login successful"
+                    }
+
                     WRONG_CREDENTIALS -> "Wrong credentials"
                     INTERNAL_SERVER_ERROR -> "Internal server error"
                     else -> "Unknown error occurred"

@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     LoginScreen(
                         modifier = Modifier.padding(innerPadding),
-                        viewModel =loginViewModel
+                        viewModel = loginViewModel
                     )
                 }
             }

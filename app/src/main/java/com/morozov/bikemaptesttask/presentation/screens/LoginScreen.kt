@@ -30,18 +30,18 @@ fun LoginScreen(
 
     val state by viewModel.state.collectAsState()
     val snackBarHostState = remember { SnackbarHostState() }
-    var showSnackbar by remember { mutableStateOf(false) }
+    var showSnackBar by remember { mutableStateOf(false) }
 
     // Show SnackBar if loginResult is not null and there is a change in the result
-    LaunchedEffect(state.loginResult,showSnackbar) {
-        if (showSnackbar)
-        state.loginResult?.let {
-            snackBarHostState.showSnackbar(
-                message = it,
-                duration = SnackbarDuration.Short,
-            )
-        }
-        showSnackbar = false
+    LaunchedEffect(state.loginResult, showSnackBar) {
+        if (showSnackBar)
+            state.loginResult?.let {
+                snackBarHostState.showSnackbar(
+                    message = it,
+                    duration = SnackbarDuration.Short,
+                )
+            }
+        showSnackBar = false
     }
 
     Column(modifier = modifier.padding(16.dp)) {
@@ -62,8 +62,10 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
-            onClick = { viewModel.login()
-                showSnackbar = true },
+            onClick = {
+                viewModel.login()
+                showSnackBar = true
+            },
             modifier = Modifier.fillMaxWidth(),
             enabled = !state.isLoading
         ) {
