@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.morozov.bikemaptesttask.data.ApiService
 import com.morozov.bikemaptesttask.domain.Error.*
+import com.morozov.bikemaptesttask.domain.LoginUseCase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +18,9 @@ data class LoginState(
 )
 
 
-class LoginViewModel(private val apiService: ApiService) : ViewModel() {
+class LoginViewModel(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
@@ -38,7 +41,7 @@ class LoginViewModel(private val apiService: ApiService) : ViewModel() {
 
         viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true)
-            val response = apiService.login(_state.value.email, _state.value.password)
+            val response = loginUseCase.execute(_state.value.email, _state.value.password)
             _state.value = _state.value.copy(
                 isLoading = false,
                 loginResult = when (response.error) {

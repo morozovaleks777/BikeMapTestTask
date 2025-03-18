@@ -10,6 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import com.morozov.bikemaptesttask.data.ApiService
+import com.morozov.bikemaptesttask.data.AuthRepositoryImpl
+import com.morozov.bikemaptesttask.domain.AuthRepository
+import com.morozov.bikemaptesttask.domain.LoginUseCase
 import com.morozov.bikemaptesttask.presentation.screens.LoginScreen
 import com.morozov.bikemaptesttask.presentation.screens.LoginViewModel
 import com.morozov.bikemaptesttask.presentation.screens.LoginViewModelFactory
@@ -21,8 +24,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val apiService = ApiService()
-        val viewModelFactory = LoginViewModelFactory(apiService)
+        val apiService: ApiService = ApiService()
+        val authRepository: AuthRepository = AuthRepositoryImpl(apiService = apiService)
+        val loginUseCase = LoginUseCase(authRepository = authRepository)
+        val viewModelFactory = LoginViewModelFactory(loginUseCase = loginUseCase)
         loginViewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
         setContent {
             BikemapTestTaskTheme {

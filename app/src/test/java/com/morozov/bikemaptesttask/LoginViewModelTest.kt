@@ -1,9 +1,12 @@
 package com.morozov.bikemaptesttask
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.morozov.bikemaptesttask.data.ApiService
+
 import com.morozov.bikemaptesttask.presentation.screens.LoginViewModel
+import com.morozov.bikemaptesttask.data.ApiService
+import com.morozov.bikemaptesttask.domain.LoginUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -19,11 +22,13 @@ class LoginViewModelTest {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var apiService: ApiService
+    private lateinit var loginUseCase: LoginUseCase
 
     @Before
     fun setUp() {
         apiService = mock(ApiService::class.java) // Mocking the ApiService
-        viewModel = LoginViewModel(apiService) // Initialize the ViewModel with the mock ApiService
+        loginUseCase = mock(LoginUseCase::class.java) // Mock LoginUseCase
+        viewModel = LoginViewModel(loginUseCase) // Initialize the ViewModel with the mock ApiService
     }
 
     @Test
